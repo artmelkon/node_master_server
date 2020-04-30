@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.autoSave": "afterDelay",
+		"files.autoSaveDelay": 1000,
+		"editor.fontSize": 10,
+		"editor.tabSize": 2,
+		"editor.tokenColorCustomizations": {
+			"comments": "#588327",
+			"functions": "#ffd000",
+			"variables": "#55d6e7"
+		}
+	}
+}
