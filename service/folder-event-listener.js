@@ -1,4 +1,11 @@
+const fs = require('fs');
+const path = require('path');
 const chokidar = require('chokidar');
+const jsonfile = require('jsonfile');
+
+// const connectBar = require('../bar-app/app');
+// const connectFoo = require('../foo-app/app');
+const Product = require('../bar-app/bar-access');
 
 const watcher = chokidar.watch( ['foo-dir', 'bar-dir'], {
   ignored: /(^|[\/\\])\../, // ignore dotfiles
@@ -9,17 +16,31 @@ const watcher = chokidar.watch( ['foo-dir', 'bar-dir'], {
 
 function eventWatcher() {
   watcher
-  .on('addDir', path => {
-    let fileExt = path.split('.').pop();
-    if (path.indexOf('bar-dir') === 0) return console.log('Bar dir ', path);
-    if(path.indexOf('foo-dir') === 0) return console.log('Foo dir ', path);
+  .on('add', root => {
+    // let fileExt = root.split('.').pop();
+    if(root.indexOf('bar-dir') === 0 && path.extname(root) === '.json') {
+      // connectBar.mongotBar();
+      jsonfile.readFile(root)
+        .then( data => {
+          Product.jsonFile(data);
+          // console.log(data)
+        })
+        .catch(err => console.error(err));
+    }
+    if(root.indexOf('foo-dir') === 0 && path.extname(root) === '.json') {
+      // connectFoo.mongoFoo();
+      jsonfile.readFile(root)
+        .then( data => console.log(data))
+        .catch(err => console.error(err));
+      // return console.log('Foo dir ', root)
+    };
 
-    console.log(`File ${path} has been add`);
+    console.log(`File ${root} has been add`);
   })
-  .on('change', path => {
-    console.log(`File ${path} has been changed`);
+  .on('change', root => {
+    console.log(`File ${root} has been changed`);
   })
-  .on( 'unlinkDir', path => console.log(`File ${path} has been removed`));  
+  .on( 'unlink', root => console.log(`File ${root} has been removed`));  
 }
 
 module.exports = eventWatcher;
