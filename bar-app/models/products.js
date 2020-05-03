@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const barSchema = new mongoose.Schema({
   assetID: String,
   color_count: Number,
-  class2Hex: String
+  class2Hex: String,
+  class3Hex: String
 })
 
-const Product = mongoose.model('Product', barSchema);
-
-module.exports = Product;
+module.exports = mongoose.model('Product', barSchema);
