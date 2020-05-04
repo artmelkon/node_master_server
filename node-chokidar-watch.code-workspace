@@ -11,7 +11,7 @@
 		"editor.tabSize": 2,
 		"editor.tokenColorCustomizations": {
 			"comments": "#588327",
-			"functions": "#ffd000",
+			"functions": "#e9d064",
 			"variables": "#55d6e7"
 		}
 	}
